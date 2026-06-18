@@ -1,26 +1,192 @@
 @import "tailwindcss";
 
+/* ============================================================
+   TUT Colour Fun Run — theme tokens
+   ============================================================ */
+@theme {
+  --color-blue: #1741d6;
+  --color-blue-deep: #0f2da3;
+  --color-yellow: #e3ff00;
+  --color-pink: #ff1e8c;
+  --color-ink: #0d0d0d;
+  --color-paper: #fdfdf6;
+  --color-glow: #4dffd2;
+
+  --font-display: var(--font-anton), system-ui, sans-serif;
+  --font-body: var(--font-outfit), system-ui, sans-serif;
+  --font-digit: var(--font-techmono), ui-monospace, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --shadow-sticker: 4px 4px 0 0 var(--color-ink);
+  --shadow-sticker-lg: 7px 7px 0 0 var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   Base (layered so Tailwind utilities can override)
+   ============================================================ */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* keep anchored content clear of the sticky nav */
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    font-synthesis-weight: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  ::selection {
+    background: var(--color-pink);
+    color: #fff;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+  }
+  /* Visible keyboard-focus indicator on every interactive element */
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   Components (declared below utilities so utility colours win)
+   ============================================================ */
+@layer components {
+  .card {
+    background: #ffffff;
+    border: 3px solid var(--color-ink);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-sticker);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 999px;
+    background: var(--color-yellow);
+    color: var(--color-ink);
+  }
+
+  .scoreboard {
+    background: #060a09;
+    border: 3px solid var(--color-ink);
+    border-radius: 1.1rem;
+    box-shadow: var(--shadow-sticker), inset 0 0 0 2px rgba(77, 255, 210, 0.15),
+      inset 0 0 40px rgba(77, 255, 210, 0.12);
+  }
+  .scoreboard-digit {
+    font-family: var(--font-digit);
+    color: var(--color-glow);
+    text-shadow: 0 0 5px rgba(77, 255, 210, 0.9), 0 0 16px rgba(77, 255, 210, 0.55),
+      0 0 30px rgba(77, 255, 210, 0.3);
+  }
+
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 2rem;
+    animation: marquee 28s linear infinite;
+    will-change: transform;
+  }
+}
+
+/* ============================================================
+   Decoration + animation helpers (unlayered)
+   ============================================================ */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.shadow-sticker {
+  box-shadow: var(--shadow-sticker);
+}
+.shadow-sticker-lg {
+  box-shadow: var(--shadow-sticker-lg);
+}
+
+.animate-floaty {
+  animation: floaty 7s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 26s linear infinite;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-16px) rotate(var(--rot, 0deg));
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: var(--shadow-sticker), 0 0 0 0 rgba(255, 30, 140, 0);
+  }
+  50% {
+    box-shadow: var(--shadow-sticker), 0 0 26px 4px rgba(255, 30, 140, 0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty,
+  .animate-spin-slow,
+  .animate-pulse-glow,
+  .marquee__track {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

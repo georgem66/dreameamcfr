@@ -1,65 +1,137 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import Countdown from "@/components/Countdown";
+import Section from "@/components/Section";
+import StickerButton from "@/components/StickerButton";
+import Splatter from "@/components/Splatter";
+import JsonLd from "@/components/JsonLd";
+import { eventJsonLd } from "@/lib/jsonld";
+import { event, highlights, links } from "@/lib/content";
+
+const marqueeItems = [
+  "Run. Splash. Shine.",
+  "#RunForChangeRunForAll",
+  "24 Oct 2026",
+  "TUT Pretoria Campus",
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <JsonLd data={eventJsonLd()} />
+      <Hero />
+
+      {/* Countdown scoreboard */}
+      <section className="px-4">
+        <div className="mx-auto flex max-w-6xl justify-center">
+          <Countdown />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Marquee strip */}
+      <div className="marquee my-14 border-y-[3px] border-ink bg-yellow py-3">
+        <div
+          className="marquee__track font-display text-2xl uppercase tracking-tight sm:text-3xl"
+          aria-hidden="true"
+        >
+          {[0, 1].map((dup) =>
+            marqueeItems.map((m, i) => (
+              <span key={`${dup}-${i}`} className="flex items-center gap-8">
+                {m}
+                <span className="text-pink">✺</span>
+              </span>
+            ))
+          )}
         </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Welcome */}
+      <Section className="mx-auto max-w-3xl px-4 text-center">
+        <span className="tag">Welcome</span>
+        <h2 className="mt-5 text-[clamp(2rem,7vw,3rem)]">
+          Welcome to the TUT Colour Fun Run 2026!
+        </h2>
+        <p className="mt-5 text-lg leading-relaxed text-ink/75">{event.welcome}</p>
+      </Section>
+
+      {/* Key highlights */}
+      <Section className="mx-auto mt-16 max-w-6xl px-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {highlights.map((h) => (
+            <div
+              key={h.label}
+              className="card flex flex-col gap-3 p-6 transition-transform duration-200 hover:-translate-y-1"
+            >
+              <span
+                aria-hidden="true"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-ink text-2xl"
+                style={{ backgroundColor: h.color }}
+              >
+                {h.emoji}
+              </span>
+              <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/55">
+                {h.label}
+              </span>
+              <span className="break-words font-display text-xl leading-tight">
+                {h.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Festival experience */}
+      <Section className="mx-auto mt-20 max-w-6xl px-4">
+        <div className="card relative overflow-hidden border-ink bg-blue p-8 text-white sm:p-12">
+          <Splatter className="pointer-events-none absolute -right-12 -top-12 w-56 opacity-90 sm:w-80" />
+          <div className="relative z-10 max-w-2xl">
+            <h2 className="text-3xl uppercase sm:text-4xl">
+              <span aria-hidden="true">⚡</span> The Lifestyle Festival Experience{" "}
+              <span aria-hidden="true">⚡</span>
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-white/85">
+              More than a race. Join students, staff, and alumni at the TUT
+              Pretoria Campus for non-stop music, local food stalls, and
+              high-energy themed colour stations — all celebrating fitness,
+              social inclusion, and mental-health awareness.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <StickerButton href="/the-run" variant="yellow">
+                See the Route
+              </StickerButton>
+              <StickerButton href="/about" variant="white">
+                Our Mission
+              </StickerButton>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Call to action */}
+      <Section className="mx-auto mt-20 max-w-4xl px-4">
+        <div className="card relative overflow-hidden bg-yellow p-8 text-center sm:p-12">
+          <Splatter className="pointer-events-none absolute -bottom-16 -left-12 w-56 opacity-80 sm:w-72" />
+          <div className="relative z-10">
+            <h2 className="text-[clamp(2rem,7vw,3rem)] uppercase">
+              Don’t Miss Out — Register Now!
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-ink/80">
+              Be part of the most colourful event of the year. Spots are limited,
+              so secure your place today.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <StickerButton href={links.register} variant="pink" size="lg" external>
+                Register Here
+              </StickerButton>
+              <StickerButton href={links.volunteer} variant="white" size="lg" external>
+                Volunteer
+              </StickerButton>
+              <StickerButton href={links.sponsor} variant="blue" size="lg" external>
+                Sponsor Us
+              </StickerButton>
+            </div>
+          </div>
+        </div>
+      </Section>
+    </>
   );
 }
