@@ -213,7 +213,12 @@ export const podcast = {
     { text: "Special guests on sport and mental health", emoji: "⭐" },
   ],
   episodes: [
-    { no: "EP 01", title: "Why We Run For Change", note: "Coming soon" },
+    {
+      no: "EP 01",
+      title: "Why We Run For Change",
+      note: "Now playing",
+      video: "/podcast/episode-1.mp4",
+    },
     { no: "EP 02", title: "Race-Day, Behind the Mic", note: "Coming soon" },
     { no: "EP 03", title: "Minds in Motion", note: "Coming soon" },
   ],
