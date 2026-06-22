@@ -64,12 +64,12 @@ export default function PodcastPage() {
         <h2 className="text-center text-3xl uppercase sm:text-4xl">Episodes</h2>
 
         {/* Featured: episode with a video */}
-        <div className="mt-8 grid gap-6 md:grid-cols-[1fr_1.4fr] md:items-start">
+        <div className="mt-8 grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-start">
           {podcast.episodes
             .filter((ep) => ep.video)
             .map((ep) => (
               <div key={ep.no} className="flex flex-col gap-4">
-                <EpisodePlayer src={ep.video!} title={ep.title} />
+                <EpisodePlayer src={ep.video!} title={ep.title} aspect="16/9" />
                 <div className="card flex items-center justify-between gap-4 p-5">
                   <div className="flex items-center gap-4">
                     <span className="font-display text-xl text-blue">

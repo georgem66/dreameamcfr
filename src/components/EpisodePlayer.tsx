@@ -8,9 +8,11 @@ import { useRef, useState } from "react";
 export default function EpisodePlayer({
   src,
   title,
+  aspect = "16/9",
 }: {
   src: string;
   title: string;
+  aspect?: "16/9" | "9/16";
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -24,14 +26,17 @@ export default function EpisodePlayer({
 
   return (
     <div className="card relative overflow-hidden bg-white">
-      <div className="relative aspect-[9/16] w-full max-w-sm mx-auto bg-ink">
+      <div
+        className="relative w-full bg-ink"
+        style={{ aspectRatio: aspect }}
+      >
         <video
           ref={videoRef}
           src={src}
           controls={playing}
           playsInline
           preload="metadata"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain"
           onEnded={() => setPlaying(false)}
         />
         {!playing && (
