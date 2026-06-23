@@ -74,11 +74,13 @@ export default async function BlogPostPage({ params }: Props) {
             Read it right here, or open it in a new tab for the full page.
           </p>
           <div className="card mt-8 overflow-hidden">
-            {/* Browser-native PDF viewer. No extra deps. */}
+            {/* Browser-native PDF viewer. Sized to be readable on phones
+                (min 65vh, capped at 85vh) and always fills the card width. */}
             <iframe
               src={post.pdf}
               title={post.title}
-              className="block h-[70vh] w-full bg-white sm:h-[80vh]"
+              loading="lazy"
+              className="block h-[65vh] min-h-[480px] w-full max-w-full bg-white sm:h-[75vh] lg:h-[80vh]"
             />
           </div>
           <div className="mt-5 flex flex-wrap justify-center gap-3">

@@ -69,7 +69,13 @@ export default function PodcastPage() {
             .filter((ep) => ep.video)
             .map((ep) => (
               <div key={ep.no} className="flex flex-col gap-4">
-                <EpisodePlayer src={ep.video!} title={ep.title} aspect="16/9" />
+                <EpisodePlayer
+                  src={ep.video!}
+                  poster={ep.poster}
+                  fallbackMp4={ep.fallbackMp4}
+                  title={ep.title}
+                  aspect="16/9"
+                />
                 <div className="card flex items-center justify-between gap-4 p-5">
                   <div className="flex items-center gap-4">
                     <span className="font-display text-xl text-blue">

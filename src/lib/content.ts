@@ -219,7 +219,14 @@ export const podcast = {
       no: "EP 01",
       title: "Why We Run For Change",
       note: "Now playing",
-      video: "/podcast/episode-1.mp4",
+      // HLS adaptive streaming. Each browser auto-picks the right rendition:
+      //   - Safari plays HLS natively
+      //   - Chrome / Firefox use hls.js (loaded by EpisodePlayer)
+      // The poster shows on top of the player before play.
+      video: "/podcast/episode-1/master.m3u8",
+      poster: "/podcast/episode-1/poster.jpg",
+      // Fallback MP4 for RSS feeds, open graph, and any environment without HLS.
+      fallbackMp4: "/podcast/episode-1.mp4",
     },
     { no: "EP 02", title: "Race-Day, Behind the Mic", note: "Coming soon" },
     { no: "EP 03", title: "Minds in Motion", note: "Coming soon" },

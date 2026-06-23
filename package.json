@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "optimize:pdf": "python3 scripts/optimize-pdf.py",
+    "optimize:video": "bash scripts/optimize-video.sh"
   },
   "dependencies": {
+    "hls.js": "^1.5.20",
     "motion": "^12.40.0",
     "next": "16.2.9",
     "react": "19.2.4",
