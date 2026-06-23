@@ -164,8 +164,10 @@ export const blogPosts = [
     emoji: "🎬",
     title: "Meet the Team Behind the Colour",
     excerpt:
-      "Meet the organising team and volunteers making this event possible — the people powering the most colourful day of the year.",
-    body: "Full story coming soon. (Editable placeholder — Richie can write this section.)",
+      "Meet the organising team and volunteers making this event possible — the people powering the most colourful day of the year. Plus, the official Colour Fun Run playlist to get you in the mood.",
+    body: "It's one of those campus days that isn't about performance or pressure. You show up, you laugh, and for a while you forget about deadlines. The point is just being present, enjoying the moment, and letting yourself breathe. Beyond the run and the fun times, the Colour Fun Run is also tied to something bigger: mental health and student wellbeing. Each colour station targets specific challenges to support your mental health and overall wellbeing. All you really need is a white shirt, running shoes, and a smile — water is available on the day, so there's no need to carry anything extra. Browse the official playlist below and get ready for the most colourful day of the year.",
+    pdf: "/blog/meet-the-team-playlist.pdf",
+    date: "23 June 2026",
     accent: "var(--color-pink)",
   },
   {

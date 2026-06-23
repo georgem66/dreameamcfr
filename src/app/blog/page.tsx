@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Section from "@/components/Section";
 import StickerButton from "@/components/StickerButton";
 import Splatter from "@/components/Splatter";
@@ -10,6 +11,12 @@ export const metadata = pageMeta({
     "Latest updates and stories: behind the scenes, training tips, mental health, and student voices from the TUT Colour Fun Run.",
   path: "/blog",
 });
+
+/* A post is "live" once it has real content (PDF or non-placeholder body). */
+function isLive(post: (typeof blogPosts)[number]): boolean {
+  if (post.pdf) return true;
+  return !post.body.toLowerCase().includes("coming soon");
+}
 
 export default function BlogPage() {
   return (
@@ -27,29 +34,47 @@ export default function BlogPage() {
 
       <Section className="mx-auto mt-10 max-w-6xl px-4">
         <div className="grid gap-6 sm:grid-cols-2">
-          {blogPosts.map((p) => (
-            <article key={p.slug} className="card overflow-hidden">
-              <div className="h-2 w-full" style={{ backgroundColor: p.accent }} />
-              <div className="p-7">
-                <div className="flex items-center gap-3">
-                  <span aria-hidden="true" className="text-3xl">
-                    {p.emoji}
-                  </span>
-                  <span
-                    className="inline-flex items-center rounded-full border-2 px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-[0.15em]"
-                    style={{ borderColor: p.accent, color: p.accent }}
-                  >
-                    {p.category}
+          {blogPosts.map((p) => {
+            const live = isLive(p);
+            const cardInner = (
+              <>
+                <div className="h-2 w-full" style={{ backgroundColor: p.accent }} />
+                <div className="p-7">
+                  <div className="flex items-center gap-3">
+                    <span aria-hidden="true" className="text-3xl">
+                      {p.emoji}
+                    </span>
+                    <span
+                      className="inline-flex items-center rounded-full border-2 px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-[0.15em]"
+                      style={{ borderColor: p.accent, color: p.accent }}
+                    >
+                      {p.category}
+                    </span>
+                  </div>
+                  <h2 className="mt-4 text-2xl leading-tight">{p.title}</h2>
+                  <p className="mt-2 text-ink/75">{p.excerpt}</p>
+                  <span className="mt-5 inline-block text-sm font-extrabold uppercase tracking-wide text-blue">
+                    {live ? "Read more →" : "Coming soon →"}
                   </span>
                 </div>
-                <h2 className="mt-4 text-2xl leading-tight">{p.title}</h2>
-                <p className="mt-2 text-ink/75">{p.excerpt}</p>
-                <span className="mt-5 inline-block text-sm font-extrabold uppercase tracking-wide text-blue">
-                  Coming soon →
-                </span>
-              </div>
-            </article>
-          ))}
+              </>
+            );
+            return (
+              <article key={p.slug} className="card overflow-hidden">
+                {live ? (
+                  <Link
+                    href={`/blog/${p.slug}`}
+                    className="block transition-transform duration-150 ease-out hover:-translate-y-0.5"
+                    aria-label={`Read ${p.title}`}
+                  >
+                    {cardInner}
+                  </Link>
+                ) : (
+                  cardInner
+                )}
+              </article>
+            );
+          })}
         </div>
         <p className="mt-8 text-center text-sm text-ink/55">
           More stories on the way — the team adds posts as the event grows.
