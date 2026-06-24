@@ -8,7 +8,7 @@ type Props = {
   /** Optional poster image shown before play. */
   poster?: string;
   /** Optional direct-MP4 fallback for environments that don't support HLS
-   *  (RSS readers, OG crawlers, very old browsers). */
+   *  (RSS readers, OG crawlers, very old browsers, or HLS load failures). */
   fallbackMp4?: string;
   title: string;
   aspect?: "16/9" | "9/16";
@@ -20,7 +20,14 @@ type Props = {
  * - Adaptive streaming: the player picks HLS (Safari native, or hls.js on
  *   Chrome / Firefox / Edge) when given an .m3u8, and falls back to a plain
  *   MP4 otherwise. Phones get a small rendition, desktops get a bigger one,
- *   and the connection-adaptive ladder scales with available bandwidth. */
+ *   and the connection-adaptive ladder scales with available bandwidth.
+ *
+ * Mobile compatibility notes (the three bugs this component guards against):
+ *  1. Safari/iPhone native HLS: the m3u8 must be set as <video src> directly.
+ *  2. hls.js load race: if the user taps play before hls.js has attached,
+ *     we immediately degrade to the MP4 fallback so the tap is never dead.
+ *  3. hls.js fatal errors (network/codec/worker): destroy the player and
+ *     switch to the MP4 fallback automatically. */
 export default function EpisodePlayer({
   src,
   poster,
@@ -31,6 +38,8 @@ export default function EpisodePlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const isHls = /\.m3u8(\?|$)/i.test(src);
+  // True once hls.js (or Safari native) has attached a source to the <video>.
+  const hlsReadyRef = useRef(false);
 
   // Wire up HLS on browsers that need it (everywhere except Safari).
   useEffect(() => {
@@ -38,8 +47,12 @@ export default function EpisodePlayer({
     const v = videoRef.current;
     if (!v) return;
 
-    // Safari has native HLS.
-    if (v.canPlayType("application/vnd.apple.mpegurl")) return;
+    // Safari has native HLS — set src directly so iPhone can play.
+    if (v.canPlayType("application/vnd.apple.mpegurl")) {
+      v.src = src;
+      hlsReadyRef.current = true;
+      return;
+    }
 
     let hls: { destroy: () => void } | null = null;
     let cancelled = false;
@@ -50,17 +63,35 @@ export default function EpisodePlayer({
         if (cancelled) return;
         const Hls = mod.default;
         if (Hls.isSupported()) {
-          const player = new Hls({ enableWorker: true });
+          // enableWorker:false — some Android WebViews crash on worker, negligible perf hit.
+          const player = new Hls({ enableWorker: false });
           player.loadSource(src);
           player.attachMedia(v);
+          // On fatal error, destroy and fall back to MP4.
+          player.on(Hls.Events.ERROR, (_: unknown, data: { fatal: boolean; type: string }) => {
+            if (!data?.fatal) return;
+            if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+              // Try one network retry before giving up to MP4.
+              player.startLoad();
+              return;
+            }
+            // Media error or anything else fatal → MP4.
+            player.destroy();
+            hls = null;
+            if (fallbackMp4) v.src = fallbackMp4;
+            hlsReadyRef.current = true; // MP4 is ready immediately
+          });
+          hlsReadyRef.current = true;
           hls = player;
         } else if (fallbackMp4) {
           // Very old browser: degrade to MP4.
           v.src = fallbackMp4;
+          hlsReadyRef.current = true;
         }
       })
       .catch(() => {
         if (fallbackMp4) v.src = fallbackMp4;
+        hlsReadyRef.current = true;
       });
 
     return () => {
@@ -74,8 +105,25 @@ export default function EpisodePlayer({
     if (!v) return;
     // For non-HLS sources, set src on first play (lets the poster render first).
     if (!isHls && !v.src) v.src = src;
-    v.play();
-    setPlaying(true);
+    // For HLS: if hls.js/Safari hasn't attached a source yet (slow load),
+    // immediately use the MP4 fallback so the tap is never dead.
+    if (isHls && !hlsReadyRef.current && fallbackMp4) {
+      v.src = fallbackMp4;
+    }
+    // play() returns a Promise; catch rejection (happens on mobile when
+    // autoplay policies block or the user gestures race).
+    const p = v.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => setPlaying(true)).catch(() => {
+        // Playback failed — if we have a fallback we haven't tried yet, retry.
+        if (isHls && fallbackMp4 && v.src !== fallbackMp4) {
+          v.src = fallbackMp4;
+          v.play().then(() => setPlaying(true)).catch(() => {});
+        }
+      });
+    } else {
+      setPlaying(true);
+    }
   };
 
   return (
@@ -88,11 +136,14 @@ export default function EpisodePlayer({
           ref={videoRef}
           controls={playing}
           playsInline
+          // Older Android WebView needs the vendor-prefixed attribute too.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          {...({ webkitPlaysInline: true } as any)}
           preload={isHls ? "metadata" : "none"}
           poster={poster}
-          // For HLS: the source is bound imperatively by hls.js.
+          // For HLS: the source is bound imperatively by hls.js or Safari native.
           // For MP4: we set src on first play so the poster stays visible.
-          src={isHls ? undefined : undefined}
+          src={undefined}
           className="absolute inset-0 h-full w-full object-contain"
           onEnded={() => setPlaying(false)}
         >
