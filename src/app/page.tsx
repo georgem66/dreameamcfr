@@ -90,9 +90,10 @@ export default function Home() {
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/85">
               More than a race. Join students, staff, and alumni at the TUT
-              Pretoria Campus for non-stop music, local food stalls, and
-              high-energy themed colour stations — all celebrating fitness,
-              social inclusion, and mental-health awareness.
+              West Campus Main Stadium for non-stop music, local food
+              stalls, and high-energy themed colour stations — all
+              celebrating fitness, social inclusion, and mental-health
+              awareness.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <StickerButton href="/the-run" variant="yellow">

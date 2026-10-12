@@ -35,7 +35,7 @@ export function eventJsonLd() {
       name: event.venue,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Pretoria Campus, Tshwane University of Technology",
+        streetAddress: "West Campus Main Stadium, Tshwane University of Technology",
         addressLocality: "Pretoria",
         addressRegion: "Gauteng",
         addressCountry: "ZA",
