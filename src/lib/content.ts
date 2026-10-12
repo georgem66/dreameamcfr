@@ -24,14 +24,14 @@ export const site = {
 export const event = {
   name: "TUT Colour Fun Run 2026",
   shout: "Run For Change, Run For All!",
-  date: "24 October 2026",
-  time: "09:00",
+  date: "21 October 2026",
+  time: "14:00–16:00",
   // Countdown target — South African Standard Time (UTC+2).
-  startISO: "2026-10-24T09:00:00+02:00",
-  // Approximate finish time (used for event structured data) — adjust if needed.
-  endISO: "2026-10-24T13:00:00+02:00",
-  venue: "Tshwane University of Technology — Pretoria Campus",
-  venueShort: "TUT Pretoria Campus",
+  startISO: "2026-10-21T14:00:00+02:00",
+  // End time (used for event structured data).
+  endISO: "2026-10-21T16:00:00+02:00",
+  venue: "Tshwane University of Technology — West Campus Main Stadium",
+  venueShort: "TUT West Campus Main Stadium",
   theme: "Run. Splash. Shine.",
   hashtag: "#RunForChangeRunForAll",
   distance: "5 km",
