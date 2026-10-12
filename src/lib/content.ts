@@ -75,12 +75,9 @@ export const highlights = [
   { label: "Hashtag", value: "#RunForChangeRunForAll", emoji: "💬", color: "#ff7a00" },
 ];
 
-/* External actions — paste your real links below.
-   These currently point nowhere ("#"). */
+/* External actions — registration opens the Google Form in a new tab. */
 export const links = {
-  register: "#", // TODO: paste your registration form URL (e.g. Google Form)
-  volunteer: "#", // TODO: paste your volunteer sign-up URL
-  sponsor: "#", // TODO: paste your sponsorship enquiry URL
+  register: "https://docs.google.com/forms/d/e/1FAIpQLSe6wbpZMv80bbSEzTOBc1c3Cca2pegy8lXkLGfWR2SfE2ojNw/viewform?usp=header",
 };
 
 export const contact = {
@@ -93,28 +90,9 @@ export const contact = {
 export const socials = [
   {
     name: "Instagram",
-    handle: "@TUTColourFunRun",
+    handle: "@runforchange_26",
     short: "IG",
-    // TODO: confirm these profile URLs are correct
-    href: "https://instagram.com/TUTColourFunRun",
-  },
-  {
-    name: "TikTok",
-    handle: "@TUTColourFunRun",
-    short: "TK",
-    href: "https://www.tiktok.com/@TUTColourFunRun",
-  },
-  {
-    name: "Facebook",
-    handle: "TUT Colour Fun Run",
-    short: "FB",
-    href: "https://facebook.com/TUTColourFunRun",
-  },
-  {
-    name: "Twitter / X",
-    handle: "@TUTColourFunRun",
-    short: "X",
-    href: "https://x.com/TUTColourFunRun",
+    href: "https://www.instagram.com/runforchange_26?igsi=bzdiM3Z0b3Frd2Vp",
   },
 ];
 
