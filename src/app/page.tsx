@@ -118,16 +118,23 @@ export default function Home() {
               Be part of the most colourful event of the year. Spots are limited,
               so secure your place today.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col items-center justify-center gap-6">
               <StickerButton href={links.register} variant="pink" size="lg" external>
                 Register Here
               </StickerButton>
-              <StickerButton href={links.volunteer} variant="white" size="lg" external>
-                Volunteer
-              </StickerButton>
-              <StickerButton href={links.sponsor} variant="blue" size="lg" external>
-                Sponsor Us
-              </StickerButton>
+              <div className="flex flex-col items-center gap-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/register/register-qr.jpg"
+                  alt="Scan this QR code to open the registration form for the TUT Colour Fun Run 2026"
+                  width={144}
+                  height={144}
+                  className="h-auto w-36 rounded-xl border-[3px] border-ink bg-white p-1 shadow-sticker"
+                />
+                <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-ink/70">
+                  Scan to register
+                </span>
+              </div>
             </div>
           </div>
         </div>
