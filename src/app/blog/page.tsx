@@ -33,7 +33,7 @@ export default function BlogPage() {
       </header>
 
       <Section className="mx-auto mt-10 max-w-6xl px-4">
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="mx-auto max-w-md">
           {blogPosts.map((p) => {
             const live = isLive(p);
             const cardInner = (
@@ -76,9 +76,6 @@ export default function BlogPage() {
             );
           })}
         </div>
-        <p className="mt-8 text-center text-sm text-ink/55">
-          More stories on the way — the team adds posts as the event grows.
-        </p>
       </Section>
 
       <Section className="mx-auto mt-14 max-w-3xl px-4 text-center">
