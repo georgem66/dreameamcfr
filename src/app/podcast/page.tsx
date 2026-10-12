@@ -60,11 +60,11 @@ export default function PodcastPage() {
       </Section>
 
       {/* Episodes */}
-      <Section className="mx-auto mt-14 max-w-5xl px-4">
+      <Section className="mx-auto mt-14 max-w-3xl px-4">
         <h2 className="text-center text-3xl uppercase sm:text-4xl">Episodes</h2>
 
-        {/* Featured: episode with a video */}
-        <div className="mt-8 grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-start">
+        {/* The episode with a video */}
+        <div className="mt-8 flex flex-col gap-4">
           {podcast.episodes
             .filter((ep) => ep.video)
             .map((ep) => (
@@ -89,28 +89,6 @@ export default function PodcastPage() {
                 </div>
               </div>
             ))}
-
-          {/* Upcoming list */}
-          <div className="space-y-4">
-            {podcast.episodes
-              .filter((ep) => !ep.video)
-              .map((ep) => (
-                <div
-                  key={ep.no}
-                  className="card flex items-center justify-between gap-4 p-5 opacity-70"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="font-display text-xl text-blue">
-                      {ep.no}
-                    </span>
-                    <span className="text-lg font-semibold">{ep.title}</span>
-                  </div>
-                  <span className="shrink-0 rounded-full border-2 border-ink bg-yellow px-3 py-1 text-xs font-extrabold uppercase">
-                    {ep.note}
-                  </span>
-                </div>
-              ))}
-          </div>
         </div>
       </Section>
 
