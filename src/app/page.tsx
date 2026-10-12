@@ -10,8 +10,8 @@ import { event, highlights, links } from "@/lib/content";
 const marqueeItems = [
   "Run. Splash. Shine.",
   "#RunForChangeRunForAll",
-  "24 Oct 2026",
-  "TUT Pretoria Campus",
+  "21 Oct 2026",
+  "TUT West Campus Main Stadium",
 ];
 
 export default function Home() {
