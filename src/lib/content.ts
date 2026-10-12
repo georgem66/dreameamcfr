@@ -148,36 +148,6 @@ export const blogPosts = [
     date: "23 June 2026",
     accent: "var(--color-pink)",
   },
-  {
-    slug: "training-tips",
-    category: "Training Tips",
-    emoji: "👟",
-    title: "How to Prep for a Fun Run, Stress-Free",
-    excerpt:
-      "You don’t need to be an athlete. Here’s how to get ready for 5km of colour without the pressure.",
-    body: "Full story coming soon. (Editable placeholder — Richie can write this section.)",
-    accent: "var(--color-blue)",
-  },
-  {
-    slug: "mental-health-matters",
-    category: "Mental Health Matters",
-    emoji: "💚",
-    title: "Why Events Like This Build Resilience",
-    excerpt:
-      "Movement, community, and a little colour go a long way. Here’s how the run supports mental wellbeing.",
-    body: "Full story coming soon. (Editable placeholder — Richie can write this section.)",
-    accent: "#3fd15e",
-  },
-  {
-    slug: "student-voices",
-    category: "Student Voices",
-    emoji: "📣",
-    title: "Favourite Colour Run Moments",
-    excerpt:
-      "Hear from past participants about the moments that made the Colour Fun Run unforgettable.",
-    body: "Full story coming soon. (Editable placeholder — Richie can write this section.)",
-    accent: "#ff7a00",
-  },
 ];
 
 export const podcast = {
@@ -206,7 +176,5 @@ export const podcast = {
       // Fallback MP4 for RSS feeds, open graph, and any environment without HLS.
       fallbackMp4: "/podcast/episode-1.mp4",
     },
-    { no: "EP 02", title: "Race-Day, Behind the Mic", note: "Coming soon" },
-    { no: "EP 03", title: "Minds in Motion", note: "Coming soon" },
   ],
 };
