@@ -9,13 +9,13 @@ import { event, links } from "@/lib/content";
 export const metadata = pageMeta({
   title: "The Run",
   description:
-    "Date, route, entry fees, what to bring, safety, and the full event flow for the TUT Colour Fun Run on 24 October 2026.",
+    "Date, route, entry fees, what to bring, safety, and the full event flow for the TUT Colour Fun Run on 21 October 2026.",
   path: "/the-run",
 });
 
 const essentials = [
   { label: "Date", value: event.date, emoji: "📅" },
-  { label: "Start Time", value: event.time, emoji: "⏰" },
+  { label: "Time", value: event.time, emoji: "⏰" },
   { label: "Venue", value: event.venueShort, emoji: "📍" },
   { label: "Distance", value: event.distance, emoji: "🏁" },
 ];
@@ -53,6 +53,23 @@ export default function TheRunPage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      {/* Event poster */}
+      <Section className="mx-auto mt-8 max-w-5xl px-4">
+        <figure className="card mx-auto max-w-sm overflow-hidden p-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/poster/event-poster.jpg"
+            alt="Official poster for the TUT Colour Fun Run 2026 — 21 October 2026, 14:00 to 16:00, TUT West Campus Main Stadium"
+            width={1131}
+            height={1599}
+            className="h-auto w-full"
+          />
+          <figcaption className="border-t-[3px] border-ink bg-yellow px-5 py-3 text-center text-sm font-extrabold uppercase tracking-wide">
+            Official Event Poster
+          </figcaption>
+        </figure>
       </Section>
 
       {/* Fees / Bring / Safety */}
@@ -121,9 +138,6 @@ export default function TheRunPage() {
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <StickerButton href={links.register} variant="pink" size="lg" external>
             Register Now
-          </StickerButton>
-          <StickerButton href={links.volunteer} variant="white" size="lg" external>
-            Volunteer
           </StickerButton>
         </div>
       </Section>
