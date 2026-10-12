@@ -7,7 +7,7 @@ export const site = {
   name: "TUT Colour Fun Run 2026",
   shortName: "Colour Fun Run",
   description:
-    "Join the TUT Colour Fun Run on 24 October 2026 at the Pretoria Campus — a 5km celebration of fitness, colour, community, and mental-health awareness. #RunForChangeRunForAll",
+    "Join the TUT Colour Fun Run on 21 October 2026 at the TUT West Campus — a 5km celebration of fitness, colour, community, and mental-health awareness. #RunForChangeRunForAll",
   locale: "en_ZA",
   // Site origin for canonical URLs, sitemap, robots.txt, Open Graph and structured data.
   // Resolution order: explicit env → Vercel production domain → placeholder.
@@ -69,8 +69,8 @@ export const event = {
 };
 
 export const highlights = [
-  { label: "Date", value: "24 October 2026", emoji: "📅", color: "var(--color-pink)" },
-  { label: "Venue", value: "TUT Pretoria Campus", emoji: "📍", color: "var(--color-blue)" },
+  { label: "Date", value: event.date, emoji: "📅", color: "var(--color-pink)" },
+  { label: "Venue", value: event.venueShort, emoji: "📍", color: "var(--color-blue)" },
   { label: "Theme", value: "Run. Splash. Shine.", emoji: "✨", color: "#8b3fe8" },
   { label: "Hashtag", value: "#RunForChangeRunForAll", emoji: "💬", color: "#ff7a00" },
 ];
@@ -84,7 +84,7 @@ export const contact = {
   email: "230072264@tut.ac.za",
   phone: "072 751 2636",
   phoneHref: "tel:+27727512636",
-  location: "Tshwane University of Technology, Pretoria Campus",
+  location: "Tshwane University of Technology, West Campus",
 };
 
 export const socials = [
