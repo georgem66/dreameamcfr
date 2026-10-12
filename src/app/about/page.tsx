@@ -78,7 +78,6 @@ export default function AboutPage() {
                 srcSet={teamPhoto.webp}
                 sizes="(min-width: 640px) 28rem, 92vw"
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={teamPhoto.jpg}
                 alt={teamPhoto.alt}

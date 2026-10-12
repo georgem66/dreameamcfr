@@ -20,7 +20,6 @@ export default function Logo({
       <span className="inline-flex shrink-0 items-center justify-center rounded-lg border-2 border-ink bg-white p-1 transition-transform duration-200 group-hover:-translate-y-0.5">
         <picture>
           <source srcSet={tutLogo.webp} type="image/webp" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={tutLogo.png}
             alt={tutLogo.alt}

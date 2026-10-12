@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Static assets (binary podcast segments, images, PDFs) — never lint these.
+    "public/**",
   ]),
 ]);
 
