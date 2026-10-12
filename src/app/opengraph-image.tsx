@@ -45,8 +45,8 @@ export default function OpengraphImage() {
           <div style={{ display: "flex", fontSize: 116, fontWeight: 900, lineHeight: 1.02, color: "#1741d6" }}>
             RUN FOR ALL!
           </div>
-          <div style={{ display: "flex", fontSize: 34, color: "#0d0d0d", marginTop: 30 }}>
-            24 October 2026 · 09:00 · TUT Pretoria Campus
+          <div style={{ display: "flex", fontSize: 30, color: "#0d0d0d", marginTop: 30 }}>
+            21 October 2026 · 14:00–16:00 · TUT West Campus Main Stadium
           </div>
         </div>
 
