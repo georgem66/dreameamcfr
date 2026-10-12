@@ -91,7 +91,6 @@ export const socials = [
   {
     name: "Instagram",
     handle: "@runforchange_26",
-    short: "IG",
     href: "https://www.instagram.com/runforchange_26?igsi=bzdiM3Z0b3Frd2Vp",
   },
 ];

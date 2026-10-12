@@ -2,6 +2,7 @@ import Section from "@/components/Section";
 import StickerButton from "@/components/StickerButton";
 import Splatter from "@/components/Splatter";
 import EpisodePlayer from "@/components/EpisodePlayer";
+import InstagramIcon from "@/components/InstagramIcon";
 import { pageMeta } from "@/lib/seo";
 import { podcast, socials } from "@/lib/content";
 
@@ -99,7 +100,8 @@ export default function PodcastPage() {
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {socials.map((s) => (
             <StickerButton key={s.name} href={s.href} variant="white" size="sm" external>
-              {s.short} · {s.name}
+              <InstagramIcon className="h-4 w-4" />
+              {s.name}
             </StickerButton>
           ))}
         </div>

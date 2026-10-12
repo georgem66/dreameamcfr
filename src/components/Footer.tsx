@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import InstagramIcon from "./InstagramIcon";
 import { navLinks, socials, contact, event } from "@/lib/content";
 
 export default function Footer() {
@@ -22,7 +23,7 @@ export default function Footer() {
                 aria-label={s.name}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/70 text-xs font-extrabold transition-colors hover:border-ink hover:bg-yellow hover:text-ink"
               >
-                {s.short}
+                <InstagramIcon className="h-5 w-5" />
               </a>
             ))}
           </div>

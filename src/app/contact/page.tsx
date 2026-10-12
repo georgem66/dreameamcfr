@@ -1,6 +1,7 @@
 import Section from "@/components/Section";
 import StickerButton from "@/components/StickerButton";
 import Splatter from "@/components/Splatter";
+import InstagramIcon from "@/components/InstagramIcon";
 import { pageMeta } from "@/lib/seo";
 import { contact, socials, links } from "@/lib/content";
 
@@ -70,7 +71,7 @@ export default function ContactPage() {
             >
               <span className="flex items-center gap-3">
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-yellow text-xs font-extrabold">
-                  {s.short}
+                  <InstagramIcon className="h-4 w-4" />
                 </span>
                 <span className="font-semibold">{s.name}</span>
               </span>
